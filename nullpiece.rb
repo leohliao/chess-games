@@ -1,15 +1,12 @@
-class Piece
+require_relative 'pieces'
+
+class Nullpiece < Piece
   attr_reader :symbol
   def initialize
-    @symbol = "♙"
+    @symbol = " "
   end
 
   def to_s
     @symbol
   end
-
-  def moves
-    
-  end
-
 end

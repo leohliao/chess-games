@@ -1,4 +1,6 @@
 require "io/console"
+require_relative 'display'
+require_relative 'board'
 
 KEYMAP = {
   " " => :space,
@@ -76,9 +78,22 @@ class Cursor
   end
 
   def handle_key(key)
+    case key
+    when :return, :space
+      @cursor_pos
+    when :up, :down, :left, :right
+      update_pos(MOVES[key])
+      nil
+    when :ctrl_c
+      Process.exit(0)
+    end
   end
 
   def update_pos(diff)
+    new_pos = [@cursor_pos[0] + diff[0],  @cursor_pos[1] + diff[1]]
+    if board.in_bounds?(new_pos)
+      @cursor_pos = new_pos
+    end
   end
 end
-Contact GitHub API Training Shop Blog About
+# Contact GitHub API Training Shop Blog About
